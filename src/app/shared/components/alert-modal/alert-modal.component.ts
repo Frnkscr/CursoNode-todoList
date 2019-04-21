@@ -14,13 +14,12 @@ import { CustomAlert } from 'src/app/moduls/alert';
 export class AlertModalComponent implements OnInit {
   @ViewChild('template') template: TemplateRef<any>;
   modalRef: BsModalRef;
-  modalTitle: String;
-  modalBody: String;
+  resolveFn: (vaule:{ action: 'accept'|'cancel'}) => void;
 
   alertInfo: CustomAlert = {
     //aceptButtonText: 'Aceptar',
     cancelButton: false,
-    cancelButtonText: 'cancelAnimationFrame',
+    cancelButtonText: 'Cancelar',
     body: '',
     title: 'Alerta',
     type: 'error'
@@ -39,11 +38,13 @@ export class AlertModalComponent implements OnInit {
         this.alertInfo = Object.assign(<CustomAlert>{
           aceptButtonText: 'Aceptar',
           cancelButton: false,
-          cancelButtonText: 'cancelAnimationFrame',
+          cancelButtonText: 'cancel',
           body: '',
           title: 'Alerta',
           type: 'success'
-        },obj)
+        },obj.info);
+
+        this.resolveFn = obj.resolve;
 
         this.openModal(this.template);
       })
@@ -51,4 +52,24 @@ export class AlertModalComponent implements OnInit {
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
+
+  closeModal(){
+    this.modalRef.hide();
+  }
+
+
+  accept(): void {
+    if(this.resolveFn && typeof this.resolveFn === 'function'){
+      this.resolveFn({action: 'accept'});
+      this.modalRef.hide();
+    }
+  }
+  
+  cancel(): void {
+      if(this.resolveFn && typeof this.resolveFn === 'function'){
+        this.resolveFn({action: 'cancel'});
+        this.modalRef.hide();
+      }
+  }
+
 }

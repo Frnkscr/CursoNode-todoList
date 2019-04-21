@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SingupComponent } from './singup/singup.component';
 import { SharedModule} from 'src/app/shared/shared.module';
+import { HomeComponent } from './home/home.component';
 /* import { RouterLinkActive } from '@angular/router'; */
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SingupComponent
+    SingupComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

@@ -6,13 +6,22 @@
       </div>
     </div>
     <div class="row">
-      <div class="form-group col-12">
+      <div class="form-group custom-icon col-12">
+        
         <label for="signupemail">Correo electronico
-          <span class="text-danger ml-12" *ngIf="signupForm.get('email').hasError('required') && submitedForm">Este
-            campo es requerido</span>
+            <span class="text-danger ml-12" *ngIf="signupForm.get('email').hasError('required') && submitedForm">Este
+                campo es requerido</span>
         </label>
         <input type="email" class="form-control" id="signupemail" placeholder="Escribe tu Correo"
           formControlName="email">
+        <span class="preview-icon" *ngIf="signupForm.get('email').value">
+          <fa-icon icon="check" class="text-success" *ngIf="signupForm.get('email').status === 'VALID' "></fa-icon>
+          <fa-icon icon="times" class="text-danger"
+            *ngIf="signupForm.get('email').status === 'INVALID' && signupForm.get('email').hasError('emailExists')">
+          </fa-icon>
+          <fa-icon icon="spinner" class="text-info fa-spin" [spin]="true"
+            *ngIf="signupForm.get('email').status === 'PENDING' "></fa-icon>
+        </span>
         <div class="alert alert-info" role="alert" *ngIf="signupForm.get('email').hasError('pattern')">
           Por favor introduce un correo electronico valido
         </div>
@@ -20,11 +29,11 @@
       <div class="form-group col-12">
         <label for="signupnombre">
           Nombre
-          <span class="text-danger ml-12" *ngIf="signupForm.get('firtName').hasError('required') && submitedForm">Este
+          <span class="text-danger ml-12" *ngIf="signupForm.get('firstName').hasError('required') && submitedForm">Este
             campo es requerido</span>
         </label>
         <input type="text" class="form-control" id="signupnombre" placeholder="Escribe tu Nombre"
-          formControlName="firtName">
+          formControlName="firstName">
       </div>
       <div class="form-group col-12 col-12 col-md-6">
         <label for="signuplastname">
@@ -56,9 +65,10 @@
         <input type="text" class="form-control" id="signupUserName" placeholder="Crea tu usuario"
           formControlName="username">
         <span class="preview-icon" *ngIf="signupForm.get('username').value">
-          <fa-icon icon = "check" class="text-success" *ngIf="signupForm.get('username').status === 'VALID' " ></fa-icon>
-          <fa-icon icon = "times" class="text-danger" *ngIf="signupForm.get('username').status === 'INVALID' " ></fa-icon>
-          <fa-icon icon = "spinner" class="text-info fa-spin" [spin]= "true" *ngIf="signupForm.get('username').status === 'PENDING' " ></fa-icon>
+          <fa-icon icon="check" class="text-success" *ngIf="signupForm.get('username').status === 'VALID' "></fa-icon>
+          <fa-icon icon="times" class="text-danger" *ngIf="signupForm.get('username').status === 'INVALID' "></fa-icon>
+          <fa-icon icon="spinner" class="text-info fa-spin" [spin]="true"
+            *ngIf="signupForm.get('username').status === 'PENDING' "></fa-icon>
         </span>
       </div>
       <ng-container formGroupName="passwords">
